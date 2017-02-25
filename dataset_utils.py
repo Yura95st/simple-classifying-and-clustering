@@ -39,6 +39,24 @@ class DatasetUtils:
         return training_set, test_set
 
     @staticmethod
+    def cross_validation_split(dataset, n_folds):
+        folds = []
+        dataset_copy = dataset[:]
+        fold_size = round(len(dataset_copy) / n_folds)
+
+        random.shuffle(dataset_copy)
+
+        for _ in range(n_folds - 1):
+            fold = dataset_copy[:fold_size]
+
+            dataset_copy = dataset_copy[fold_size:]
+            folds.append(fold)
+
+        folds.append(dataset_copy)
+
+        return folds
+
+    @staticmethod
     def normalize(dataset):
         normalized_dataset = dataset[:]
 

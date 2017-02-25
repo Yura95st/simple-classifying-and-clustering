@@ -7,17 +7,26 @@ from c_means_clustering import CMeansClustering
 from nearest_neighbors_clustering import NearestNeighborsClustering
 
 
-def classifying(dataset, k=5, training_set_ratio=0.75):
-    training_set, test_set = DatasetUtils.split(dataset, training_set_ratio)
+def classifying(dataset, k=5, n_folds=5):
+    dataset_folds = DatasetUtils.cross_validation_split(dataset, n_folds)
 
-    classifier = KNearestNeighborsClassifier(training_set, k)
+    accuracies = []
 
-    result = [(classifier.classify(item), item) for item in test_set]
+    for test_set in dataset_folds:
+        training_set = dataset_folds[:]
+        training_set.remove(test_set)
+        training_set = sum(training_set, [])
 
-    for item in result:
-        print(item)
+        classifier = KNearestNeighborsClassifier(training_set, k)
+
+        result = [(classifier.classify(item), item) for item in test_set]
+
+        accuracies.append(Utils.get_accuracy(result))
+
+    print('Accuracies: {}'.format(', '.join('{:.3}'.format(a) for a in accuracies)))
+    print('Mean Accuracy: {:.3}'.format(
+        sum(accuracies) / len(accuracies)))
     print()
-    print('Accuracy: {:.2}'.format(Utils.get_accuracy(result)))
 
 
 def clustering(dataset, clusters_num=3, alpha=0.005):
@@ -38,8 +47,10 @@ def main():
     names = ['abalone', 'abalone_grouped', 'iris', 'wine']
 
     for name in names[2:]:
-        dataset = DatasetUtils.load_from_cvs('data/{0}/{0}.normilized.data'.format(name))
+        dataset = DatasetUtils.load_from_cvs(
+            'data/{0}/{0}.normilized.data'.format(name))
 
+        print('Dataset: {}'.format(name))
         classifying(dataset)
         # clustering(dataset)
 
