@@ -1,5 +1,6 @@
 import operator
-from util import Util
+from utils import Utils
+from config import CLASS_ID_POSITION
 
 class KNearestNeighborsClassifier:
 
@@ -11,7 +12,7 @@ class KNearestNeighborsClassifier:
         distances = []
 
         for item in self.training_set:
-            dist = Util.euclidean_distance(Util.remove_class_id(item), Util.remove_class_id(test_item))
+            dist = Utils.euclidean_distance(Utils.remove_class_id(item), Utils.remove_class_id(test_item))
 
             distances.append((item, dist))
 
@@ -23,7 +24,7 @@ class KNearestNeighborsClassifier:
         classes = {}
 
         for neighbor in neighbors:
-            class_num = neighbor[-1]
+            class_num = neighbor[CLASS_ID_POSITION]
 
             if class_num in classes:
                 classes[class_num] += 1

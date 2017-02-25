@@ -1,5 +1,5 @@
 import random
-from util import Util
+from utils import Utils
 
 
 class CMeansClustering:
@@ -12,8 +12,8 @@ class CMeansClustering:
         min_distance = float('inf')
 
         for i, center in enumerate(cluster_centers):
-            dist = Util.euclidean_distance(
-                Util.remove_class_id(center), Util.remove_class_id(item))
+            dist = Utils.euclidean_distance(
+                Utils.remove_class_id(center), Utils.remove_class_id(item))
 
             if dist < min_distance:
                 min_distance = dist
@@ -34,8 +34,8 @@ class CMeansClustering:
 
     def _are_cluster_centers_changed(self, cluster_centers, new_cluster_centers):
         for i, center in enumerate(cluster_centers):
-            dist = Util.euclidean_distance(
-                Util.remove_class_id(center), Util.remove_class_id(new_cluster_centers[i]))
+            dist = Utils.euclidean_distance(
+                Utils.remove_class_id(center), Utils.remove_class_id(new_cluster_centers[i]))
 
             if dist > self.alpha:
                 return True

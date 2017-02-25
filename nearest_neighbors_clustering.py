@@ -1,4 +1,4 @@
-from util import Util
+from utils import Utils
 
 
 class NearestNeighborsClustering:
@@ -8,7 +8,7 @@ class NearestNeighborsClustering:
 
         for item_one in cluster_one:
             for item_two in cluster_two:
-                dist = Util.euclidean_distance(Util.remove_class_id(item_one), Util.remove_class_id(item_two))
+                dist = Utils.euclidean_distance(Utils.remove_class_id(item_one), Utils.remove_class_id(item_two))
 
                 if dist < min_distance:
                     min_distance = dist
