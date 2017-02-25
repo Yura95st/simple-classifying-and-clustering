@@ -11,7 +11,7 @@ class KNearestNeighborsClassifier:
         distances = []
 
         for item in self.training_set:
-            dist = Util.euclidean_distance(item[:-1], test_item[:-1])
+            dist = Util.euclidean_distance(Util.remove_class_id(item), Util.remove_class_id(test_item))
 
             distances.append((item, dist))
 

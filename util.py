@@ -54,3 +54,7 @@ class Util:
                 hits_count += 1
 
         return hits_count / len(result)
+
+    @staticmethod
+    def remove_class_id(item):
+        return item[:-1]

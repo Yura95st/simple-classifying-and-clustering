@@ -4,11 +4,11 @@ from util import Util
 class NearestNeighborsClustering:
 
     def _get_distance(self, cluster_one, cluster_two):
-        min_distance = float("inf")
+        min_distance = float('inf')
 
         for item_one in cluster_one:
             for item_two in cluster_two:
-                dist = Util.euclidean_distance(item_one[:-1], item_two[:-1])
+                dist = Util.euclidean_distance(Util.remove_class_id(item_one), Util.remove_class_id(item_two))
 
                 if dist < min_distance:
                     min_distance = dist
@@ -18,7 +18,7 @@ class NearestNeighborsClustering:
     def _get_clusters_to_join(self, clusters):
         length = len(clusters)
 
-        min_distance = float("inf")
+        min_distance = float('inf')
         clusters_to_join = (-1, -1)
 
         for i in range(length):
