@@ -43,7 +43,7 @@ class CMeansClustering:
         return False
 
     def perform(self, dataset, n):
-        indexes = [random.randint(0, len(dataset) - 1) for _ in range(n)]
+        indexes = [random.randrange(0, len(dataset)) for _ in range(n)]
 
         cluster_centers = [dataset[i] for i in indexes]
         clusters = {}

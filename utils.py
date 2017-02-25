@@ -37,7 +37,7 @@ class Utils:
     def get_clustering_quality(clusters):
         total_items_count = sum([len(cluster) for cluster in clusters])
 
-        errors_count = sum([Util.get_clustering_errors_number(cluster)
+        errors_count = sum([Utils.get_clustering_errors_number(cluster)
                             for cluster in clusters])
 
         quality = 1.0 - (errors_count / total_items_count)
