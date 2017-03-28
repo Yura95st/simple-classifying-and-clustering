@@ -32,7 +32,7 @@ def classifying(dataset, k=5, n_folds=5):
 def clustering(dataset, clusters_num=3, alpha=0.001):
     clusterings = [NearestNeighborsClustering(), CMeansClustering(alpha)]
 
-    for clustering in clusterings[:1]:
+    for clustering in clusterings:
         clusters = clustering.perform(dataset, clusters_num)
 
         for cluster in clusters:
@@ -46,13 +46,13 @@ def clustering(dataset, clusters_num=3, alpha=0.001):
 def main():
     names = ['abalone', 'abalone_grouped', 'iris', 'wine']
 
-    for name in names[2:3]:
+    for name in names:
         dataset = DatasetUtils.load_from_cvs(
             'data/{0}/{0}.normilized.data'.format(name))
 
         print('Dataset: {}'.format(name))
         classifying(dataset)
-        # clustering(dataset)
+        clustering(dataset)
 
 
 if __name__ == '__main__':
